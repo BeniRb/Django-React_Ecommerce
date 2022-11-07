@@ -1,5 +1,5 @@
-import React,{useEffect} from 'react'
-import { BrowserRouter, Routes, Route, Link, Outlet,useNavigate } from "react-router-dom";
+import react from 'react'
+import {Link,useNavigate } from "react-router-dom";
 import { selectAdmin } from './loginSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectLogged,selectUserName,selectToken,doSignOutAsync } from './loginSlice'

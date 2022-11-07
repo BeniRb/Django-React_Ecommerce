@@ -13,7 +13,6 @@ const initialState = {
 export const doSigninAsync = createAsyncThunk(
     'login/signin',
     async (cred) => {
-        console.log(cred)
         const response = await signin(cred);
         return response.data;
     }
@@ -22,7 +21,6 @@ export const doSigninAsync = createAsyncThunk(
 export const doSignupAsync = createAsyncThunk(
     'login/signUp',
     async (cred) => {
-        console.log(cred)
         const response = await signUp(cred);
         return response.data;
     }
@@ -31,7 +29,6 @@ export const doSignupAsync = createAsyncThunk(
 export const doSignOutAsync = createAsyncThunk(
     'login/myLogout',
     async (token) => {
-        console.log(token)
         const response = await myLogout(token);
         return response.data;
     }
@@ -42,8 +39,6 @@ export const loginSlice = createSlice({
     initialState,
     reducers: {
         logout: (state,action) => {
-            console.log(action.payload)
-            console.log("first")
             state.token = ""
                     state.logged = false;
                     state.userName= ""
@@ -56,7 +51,6 @@ export const loginSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(doSigninAsync.fulfilled, (state, action) => {
-                console.log(action.payload)
                 if (action.payload.access) {
                     state.token = action.payload.access
                     state.logged = true;
@@ -67,7 +61,6 @@ export const loginSlice = createSlice({
                     // console.log( state.email)
                 }
             }).addCase(doSignupAsync.fulfilled, (state, action) => {
-                console.log(action.payload)
                 if (action.payload.access) {
                      state.token = action.payload.access
                      state.logged = true;
@@ -77,7 +70,6 @@ export const loginSlice = createSlice({
                      
                 }
             }).addCase(doSignOutAsync.fulfilled, (state, action) => {
-                console.log("log out")
                     state.token =""
                     state.logged = false;
                     state.userName= ""

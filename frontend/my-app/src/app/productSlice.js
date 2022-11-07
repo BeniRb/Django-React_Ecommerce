@@ -1,19 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getProducts ,addProduct,updProduct,delProduct, buyProduct} from './productsAPI';
+import { getProducts ,addProduct,updProduct,delProduct} from './productsAPI';
 
 const initialState = {
     products: []
 };
-
-// export const buyProductAsync = createAsyncThunk(
-//   'product/buyproduct',
-//   async (token) => {
-//   const response = await buyProduct(token);
-//   return response.data;
-// }
-// );
-
-
 
 
 export const getProductsAsync = createAsyncThunk(
@@ -27,7 +17,6 @@ export const getProductsAsync = createAsyncThunk(
 export const addProductAsync = createAsyncThunk(
     "product/addProduct",
     async (data) => {
-      console.log(data.token)
       const response = await addProduct(data);
       return response.data;
     }
@@ -36,7 +25,6 @@ export const addProductAsync = createAsyncThunk(
   export const updProductAsync = createAsyncThunk(
     "product/updProduct",
     async (updprod) => {
-      console.log(updprod)
       const response = await updProduct(updprod,updprod.id);
       return response.data;
     }
@@ -44,8 +32,8 @@ export const addProductAsync = createAsyncThunk(
 
   export const delProductAsync = createAsyncThunk(
     "product/delProduct",
-     async (id) => {const response = await delProduct(id)
-      console.log( "id for del prod",response.data);
+     async (id) => {
+      const response = await delProduct(id)
       return id;
     })
 
@@ -64,18 +52,11 @@ export const productSlice = createSlice({
     //   happens when async done - callback
     extraReducers: (builder) => {
         builder
-            // .addCase(buyProductAsync.fulfilled,(state,action)=> {
-            //   state.products = action.payload
-            //   console.log(action.payload)
-            // })
             .addCase(getProductsAsync.fulfilled, (state, action) => {
                 state.products= action.payload
-                console.table("printing all the products",action.payload);
-                console.log("amount", action.payload.amount)
             })
             .addCase(addProductAsync.fulfilled, (state, action) => {
                 state.products.push(action.payload);
-                console.log(action.payload);
               })
               .addCase(updProductAsync.fulfilled, (state, action) => {
                 let updprod= action.payload
@@ -86,7 +67,6 @@ export const productSlice = createSlice({
                 // oldprod.quantity=updprod.quantity
               
                 .addCase(delProductAsync.fulfilled, (state, action) => {
-                  console.log(action.payload);
                   state.products = state.products.filter((remprod) => remprod.id !== action.payload);
                 });
               });

@@ -8,3 +8,9 @@ HOW TO RUN THE PROJECT:
 7. cd my-app => npm i => npm start
 
 Project Features:
+
+
+
+
+fixings:
+for the cart delete button take the 3 first sentences from products addTocart() and add thewm to the function in the cart

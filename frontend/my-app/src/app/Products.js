@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { getProductsAsync, selectProducts, selectAmount } from './productSlice';
+import { getProductsAsync, selectProducts} from './productSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUserName } from './loginSlice';
 import { selectToken } from './loginSlice';
 import Button from '@mui/material/Button';
-import { Row, Col, Image, ListGroup, Card, Form } from "react-bootstrap";
+import {Card} from "react-bootstrap";
 import { selectLogged } from './loginSlice'
 import { Link, useParams } from 'react-router-dom';
 import { sendCart,clearAr } from "./OrderSlice";
-import { selectamount,selectorders } from "./OrderSlice";
+import {selectorders } from "./OrderSlice";
 
 
 
@@ -27,12 +27,20 @@ const Products = () => {
   const [amountCng, setamountCng] = useState(0)
   const myOrders = useSelector(selectorders);
 
+  //run every change in the length of myCart
+  useEffect(() => {
+    console.table(myCart);
+    localStorage.setItem("myCart", JSON.stringify(myCart));
+  }, [myCart.length, amountCng]);
+
+
+
+
   useEffect(() => {
     dispatch(getProductsAsync(token));
   }, []);
 
   useEffect(() => {
-    console.table("my cart",myCart)
 }, [myCart.length, amountCng])
 
 
@@ -50,7 +58,7 @@ const addToCart = (item) => {
   }
   console.table(myCart);
   localStorage.setItem("myCart", JSON.stringify(myCart));
-  // dispatch(sendCart(myCart));
+   dispatch(sendCart(myCart));
 };
 
 // useEffect(() => {
@@ -97,30 +105,12 @@ const addToCart = (item) => {
            product:{prod.desc} &nbsp;          amount: {prod.amount}
           </div>))}
 {loggedIn && <div align="center">
-          <Button variant="outlined" onClick={() => dispatch(sendCart(myCart))}>send</Button>
-      <Button variant="outlined" onClick={() => console.table(myCart)}>show cart</Button>
-    <Button  variant="outlined"onClick={()=>dispatch(clearAr())}>Clear ar</Button>
+          <Button variant="outlined" onClick={() => dispatch(sendCart(myCart))}>send to cart</Button>
+      {/* <Button variant="outlined" onClick={() => console.table(myCart)}>show cart</Button> */}
+    <Button  variant="outlined"onClick={()=>dispatch(clearAr())}>update localStorage</Button>
     </div>}
     </div>}
-
-
-
-
-
-    {/* {loggedIn && <div>
-      
-
-
-      
-      <button onClick={() => dispatch(sendCart(myCart))}>send</button>
-      <button onClick={() => console.table(myCart)}>show cart</button>
-    <button onClick={()=>dispatch(clearAr())}>Clear ar</button>
-      </div>} */}
-    {/* <button onClick={() => console.table(myCart)}>show cart</button>
-    <button onClick={()=>dispatch(clearAr())}>Clear ar</button> */}
      </div>
-     
-    // </div>
   )
 }
 

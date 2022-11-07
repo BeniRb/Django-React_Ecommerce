@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter, Routes, Route, Link, Outlet,useNavigate } from "react-router-dom";
-import { doSigninAsync, selectEmail, doSignOutAsync,selectUserName, logout, selectToken, doSignupAsync } from './loginSlice'
+import { Link,useNavigate } from "react-router-dom";
+import { doSigninAsync, selectEmail, doSignOutAsync,selectUserName,selectToken} from './loginSlice'
 
 
 const Login = () => {
@@ -12,7 +12,7 @@ const Login = () => {
     const token = useSelector(selectToken);
     const [newUserName, setNewUserName] = useState("")
     const [newPwd, setNewPwd] = useState("")
-    const [newEmail, setNewEmail] = useState("")
+    // const [newEmail, setNewEmail] = useState("")
     if(doSigninAsync && token){
         navigate('/products')
     }

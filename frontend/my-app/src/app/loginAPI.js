@@ -16,7 +16,6 @@ export function signUp(cred) {
     );
 }
 export function myLogout(token) {
-    console.log(token.token)
     return new Promise((resolve) =>
     axios(URL_LOGOUT, {
         headers: {

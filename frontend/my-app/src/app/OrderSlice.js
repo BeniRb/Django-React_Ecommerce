@@ -22,9 +22,7 @@ export const orderSlice = createSlice({
     reducers: {
         sendCart:(state,action)=>{
 
-            console.log("before action payload",action.payload)
             state.myOrders=action.payload
-            console.log("state.myorders",state.myOrders)
         },
         clearAr:(state,action)=>{
             state.myOrders=[]

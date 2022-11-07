@@ -2,16 +2,15 @@ import React, { useEffect,useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { selectorders, sendordersAsync } from './OrderSlice'
 import { selectToken, selectLogged } from './loginSlice'
-import { Row, Col, Image, ListGroup, Card, Form } from "react-bootstrap";
 import { Link,useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { delProduct } from './productsAPI';
+// import { delProduct } from './productsAPI';
 import { sendCart } from './OrderSlice';
 
 const Cart = () => {
-  const navigate=useNavigate();
+
   const notify = () => toast.success("order complete");
   let loggedIn = useSelector(selectLogged);
   const myOrders = useSelector(selectorders);
@@ -101,7 +100,7 @@ const Cart = () => {
       </form> */}
 
  </div>
-        <Button variant='outlined' onClick={() =>{notify();setTimeout(function() {window.location.replace('/home');}, 2000)}}>Make order</Button>
+        <Button variant='outlined' onClick={() =>{notify();sendorder();setTimeout(function() {window.location.replace('/home');}, 2000)}}>Make order</Button>
         </div>}
         <ToastContainer  position="bottom-center" autoClose={1000} />
         {/* <button onClick={() => console.table(myOrders)}>show MyOrders</button></div>} */}

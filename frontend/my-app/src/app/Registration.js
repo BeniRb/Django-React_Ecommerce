@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter, Routes, Route, Link, Outlet } from "react-router-dom";
-import { doSigninAsync, selectEmail, doSignOutAsync,selectUserName, logout, selectToken, doSignupAsync } from './loginSlice'
+import { doSigninAsync, selectEmail,selectUserName,selectToken, doSignupAsync } from './loginSlice'
 
 const Registration = () => {
     const dispatch = useDispatch();
@@ -30,9 +29,6 @@ const Registration = () => {
             Confirm password <br></br> <input placeholder="Confirm Password" onChange={(e) => setNewPwd(e.target.value)} type='password' /><br></br>
             Email <br></br> <input placeholder="Enter Email" onChange={(e) => setconfPWD(e.target.value)} /><br></br>
             {!token && <button onClick={() => dispatch(doSignupAsync({ username: newUserName, password: newPwd, email: newEmail }),doSigninAsync({ username: newUserName, password: newPwd }))}>Register</button>}
-            {/* {!token && <button onClick={() => dispatch(doSigninAsync({ username: newUserName, password: newPwd }))}>Login</button>}<br></br> */}
-            {/* {!token && <button onClick={() => (dispatch(doSignupAsync({ username: newUserName, password: newPwd, email: newEmail })))
-            (dispatch(doSigninAsync({ username: newUserName, password: newPwd })))}>register</button>}<br></br> */}
             </form>
         </div>
   )
