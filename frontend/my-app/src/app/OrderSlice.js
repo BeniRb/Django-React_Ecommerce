@@ -21,7 +21,6 @@ export const orderSlice = createSlice({
     initialState,
     reducers: {
         sendCart:(state,action)=>{
-
             state.myOrders=action.payload
         },
         clearAr:(state,action)=>{

@@ -18,24 +18,32 @@ const Cart = () => {
   const dispatch = useDispatch();
   const [myCart, setmyCart] = useState(useSelector(selectorders))
   const [totall, settotall] = useState(0)
+  
   const sumTotal =() =>{
     let i=0;
     let counter=0;
     let total=0;
     while (i< myOrders.length) {
+      if(myOrders[i].amount > 0){
       counter=myOrders[i].amount * myOrders[i].price;
       total += counter;
       i++;
+      settotall(total)
     }
-    settotall(total)
+    
+    else{
+      i++;
+    }
+  }
+    // settotall(total)
   }
   useEffect(() => {
     setmyCart(JSON.parse( localStorage.getItem("myOrders") ))
-  }, [])
+  }, [myOrders.length])
   useEffect(() => {
     sumTotal();
 
-  }, [myOrders.length])
+  }, [])
 
   const sendorder = () =>{
     dispatch(sendordersAsync({ myOrders, token }));

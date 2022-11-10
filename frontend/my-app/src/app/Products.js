@@ -47,24 +47,30 @@ const Products = () => {
 const addToCart = (item) => {
   let temp = myCart.find((x) => x._id === item._id);
   if (temp) {
+    console.log("temp amount",temp.amount);
     temp.amount += item.amount;
-    //   console.log(temp);
+    if(temp.amount >0){
       setmyCart(myCart);
+    }
+  } 
+  else {
+       setmyCart([...myCart, item]);
+
+      // if(myCart[].amount > 0)
+      localStorage.setItem("myCart", JSON.stringify(myCart));
+      // dispatch(sendCart(myCart));
+  }
+  // myCart.filter
+  console.table(myCart);
   
-  } else {
-    setmyCart([...myCart, item]);
     localStorage.setItem("myCart", JSON.stringify(myCart));
     // dispatch(sendCart(myCart));
-  }
-  console.table(myCart);
-  localStorage.setItem("myCart", JSON.stringify(myCart));
-   dispatch(sendCart(myCart));
 };
 
-// useEffect(() => {
-//   if (localStorage.getItem("myCart"))
-//   setmyCart(JSON.parse( localStorage.getItem("myCart") ))
-// }, [])
+useEffect(() => {
+  if (localStorage.getItem("myCart"))
+  setmyCart(JSON.parse( localStorage.getItem("myCart") ))
+}, [])
 
 
 
@@ -86,7 +92,7 @@ const addToCart = (item) => {
           </Card.Text>
         </Card.Body>
         <Button variant="outlined" onClick={() => addToCart({ _id: prod.id, desc: prod.desc, amount: 1,price:prod.price })}>
-        Add to cart
+        Add to basket
         </Button>
                 <Button onClick={() => addToCart({ _id: prod.id, desc: prod.desc, amount: 1,price:prod.price })}>+</Button>
                 <div align="center">{}</div>
@@ -99,15 +105,15 @@ const addToCart = (item) => {
     </div>
     <br></br>
     {loggedIn&&<div>
-     <h3 align="center">local storage:<br></br></h3>
+     <h3 align="center">Shoping basket:<br></br></h3>
     {myCart.map((prod) => (
         <div align="center">
            product:{prod.desc} &nbsp;          amount: {prod.amount}
           </div>))}
 {loggedIn && <div align="center">
-          <Button variant="outlined" onClick={() => dispatch(sendCart(myCart))}>send to cart</Button>
+          <Button variant="outlined" onClick={() => dispatch(sendCart(myCart))}>send items to cart</Button>
       {/* <Button variant="outlined" onClick={() => console.table(myCart)}>show cart</Button> */}
-    <Button  variant="outlined"onClick={()=>dispatch(clearAr())}>update localStorage</Button>
+    {/* <Button  variant="outlined"onClick={()=>dispatch(clearAr())}>update localStorage</Button> */}
     </div>}
     </div>}
      </div>
